@@ -17,10 +17,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/contact', function () {
+Route::get('/contato', function () {
     return view('contact');
 });
 
-Route::get('/products', function () {
-    return view('products');
+Route::get('/produtos', function () {
+    $search = request('search');
+
+    return view('products', ['search' => $search]);
+});
+
+Route::get('/produtos/{id?}', function ($id = null) {
+    return view('product', ['id' => $id]);
 });
