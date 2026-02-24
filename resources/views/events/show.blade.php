@@ -16,14 +16,30 @@
             </p>
 
             <p class="events-participants">
-                <ion-icon name="people-outline"></ion-icon> {{$event->participants}} Participantes
+                <ion-icon name="people-outline"></ion-icon> 
+                {{ count($event->users) }} Participantes
             </p>
 
             <p class="event-owner">
-                <ion-icon name="star-outline"></ion-icon> Dono do evento: {{$eventOwener['name'] }}
+                <ion-icon name="star-outline"></ion-icon> Dono do evento: {{ $eventOwner ? $eventOwner['name'] : 'Não informado' }}
             </p>
 
-            <a href="#" id="event-submit" class="btn btn-primary">Confirmar presença</a>
+            @if(!hasUserJoined)
+                <form action="/events/join/{{ $event->id }}" method="POST">
+                    @csrf
+                    <a href="/events/join/{{ $event->id }}" 
+                    class="btn btn-primary"
+                    id="event-submit"
+                    onclick="event.preventDefault();
+                    this.closest('form').submit();">
+                        Confirmar presença
+                    </a>
+                </form>
+            @else
+                <p class="already-joined-msg">
+                    Você já está participando deste evento!
+                </p>
+            @endif
 
             <h3>O evento conta com:</h3>
             @if($event->items)
