@@ -24,7 +24,7 @@
                 <ion-icon name="star-outline"></ion-icon> Dono do evento: {{ $eventOwner ? $eventOwner['name'] : 'Não informado' }}
             </p>
 
-            @if(!hasUserJoined)
+            @if(!$hasUserJoined)
                 <form action="/events/join/{{ $event->id }}" method="POST">
                     @csrf
                     <a href="/events/join/{{ $event->id }}" 
